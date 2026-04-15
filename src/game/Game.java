@@ -55,35 +55,31 @@ public class Game {
     }
 
     private void updatePositions() {
-        for(int i = 0; i < enemyProjectiles.size(); i++) {
-            Projectile p = enemyProjectiles.get(i);
-            p.moveDown();
-            if(p.isOutOfBounds() == true) {
-                enemyProjectiles.remove(p);
+        for(Projectile enemyProjectile : enemyProjectiles) {
+            enemyProjectile.moveDown();
+            if(enemyProjectile.isOutOfBounds() == true) {
+                enemyProjectiles.remove(enemyProjectile);
             }
         }
 
-        for(int i = 0; i < playerProjectiles.size(); i++) {
-            Projectile p = playerProjectiles.get(i);
-            p.moveUp();
-            if(p.isOutOfBounds() == true) {
-                playerProjectiles.remove(p);
+        for(Projectile playerProjectile : playerProjectiles) {
+            playerProjectile.moveUp();
+            if(playerProjectile.isOutOfBounds() == true) {
+                playerProjectiles.remove(playerProjectile);
             }
         }
 
-        for(int i = 0; i < enemies.size(); i++) {
-            Enemy e = enemies.get(i);
-            e.move();
+        for(Enemy enemy : enemies) {
+            enemy.move();
         }
 
         player.move();
     }
 
     private void fireProjectiles() {
-        for(int i = 0; i < enemies.size(); i++) {
-            Enemy e = enemies.get(i);
-            if(e.isFiring() == true) {
-                Projectile p = new Projectile(e.getXPosition(), e.getYPosition() - e.getSize(), Color.RED);
+        for(Enemy enemy : enemies) {
+            if(enemy.isFiring() == true) {
+                Projectile p = new Projectile(enemy.getXPosition(), enemy.getYPosition() - enemy.getSize(), Color.RED);
                 enemyProjectiles.add(p);
             }
             
@@ -95,21 +91,18 @@ public class Game {
     }
 
     private boolean checkCollisions() {
-        for(int i = 0; i < playerProjectiles.size(); i++) {
-            Projectile p = playerProjectiles.get(i);
-            for(int j = 0; j < enemies.size(); j++) {
-                Enemy e = enemies.get(j);
-                if(p.collidesWith(e) == true) {
-                    enemies.remove(e);
-                    playerProjectiles.remove(p);
+        for(Projectile playerProjectile : playerProjectiles) {
+            for(Enemy enemy : enemies) {
+                if(playerProjectile.collidesWith(enemy) == true) {
+                    enemies.remove(enemy);
+                    playerProjectiles.remove(playerProjectile);
                     score++;
                 }
             }
         }
 
-        for(int i = 0; i < enemyProjectiles.size(); i++) {
-            Projectile p = enemyProjectiles.get(i);
-            if(p.collidesWith(player)) {
+        for(Projectile enemyProjectile : enemyProjectiles) {
+            if(enemyProjectile.collidesWith(player)) {
                 return true;
             }
         }
@@ -118,17 +111,14 @@ public class Game {
 
     private void draw() {
         StdDraw.clear();
-        for(int i = 0; i < enemies.size(); i++) {
-            Enemy e = enemies.get(i);
-            e.draw();
+        for(Enemy enemy : enemies) {
+            enemy.draw();
         }
-        for(int i = 0; i < playerProjectiles.size(); i++) {
-            Projectile p = playerProjectiles.get(i);
-            p.draw();
+        for(Projectile playerProjectile : playerProjectiles) {
+            playerProjectile.draw();
         }
-        for(int i = 0; i < enemyProjectiles.size(); i++) {
-            Projectile p = enemyProjectiles.get(i);
-            p.draw();
+        for(Projectile enemyProjectile : enemyProjectiles) {
+            enemyProjectile.draw();
         }
         player.draw();
         StdDraw.text(0.1, 0.9, "Score: " + score);

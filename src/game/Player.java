@@ -14,12 +14,15 @@ public class Player extends Entity {
         lastFired = System.currentTimeMillis();
     }
 
+    private double deltaMovement;
+
     public void move() {
+        this.deltaMovement = .01;
         if (StdDraw.isKeyPressed(KeyEvent.VK_A)) {
-            setXPosition(this.getXPosition() - 0.01);
+            setXPosition(this.getXPosition() - deltaMovement);
         }
         if (StdDraw.isKeyPressed(KeyEvent.VK_D)) {
-            setXPosition(this.getXPosition() + 0.01);
+            setXPosition(this.getXPosition() + deltaMovement);
         }
     }
 
@@ -29,11 +32,7 @@ public class Player extends Entity {
             if (StdDraw.isKeyPressed(KeyEvent.VK_SPACE)) {
                 lastFired = now;
                 return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+            } 
+        } return false;
     }
 }
