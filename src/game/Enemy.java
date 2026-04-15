@@ -9,9 +9,7 @@ public class Enemy extends Entity {
     private long lastFired;
 
     public Enemy() {
-        double randomX = Math.random() * 0.9;
-        double randomY = Math.random() * 0.8 + 0.15;
-        super(randomX, randomY, 0.03, Color.RED);
+        super(Math.random() * 0.9, Math.random() * 0.8 + 0.15, 0.03, Color.RED);
         xSpeed = Math.random() * 0.05;
         ySpeed = Math.random() * 0.05;
         lastFired = System.currentTimeMillis();
